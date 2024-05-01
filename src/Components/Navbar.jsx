@@ -24,7 +24,7 @@ function Navbar() {
                             <li><NavLink className='hover:text-[#D87D4A] text-white hover:bg-transparent' to={'/earphones'}>EARPHONES</NavLink></li>
                         </ul>
                     </div>
-                    <div className="navbar-end">
+                    <div className="navbar-end flex items-center gap-2">
                         <div className="dropdown dropdown-end">
                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                                 <div className="indicator">
@@ -42,7 +42,7 @@ function Navbar() {
                                 </div>
                             </div>
                         </div>
-                        <span onClick={handleSignout} className='cursor-pointer btn btn-success btn-sm'>Sign Out</span>
+                        <span onClick={handleSignout} className='cursor-pointer text-white bg-orange-400 rounded-lg py-1 px-2'>Sign Out</span>
                     </div>
                 </div>
                 <hr />
