@@ -14,7 +14,7 @@ import zx99speker from '../assets/home/zx9speaker.svg'
 import zx7spekerP from '../assets/home/zx7-speaker.png'
 import yx1earphones from '../assets/home/yx1-earphones.png'
 import person from '../assets/home/person.png'
-import Footer from '../Components/Footer';
+import yx1earphone from '../assets/home/earphones.png'
 
 function Home() {
   const [loggedUser, setLoggedUser] = useContext(loggedUserName)
@@ -115,7 +115,7 @@ function Home() {
             <figure className='w-32 m-auto absolute z-20 mx-28 mt-[-70px]'>
               <img style={{
 
-              }} src={headphones} alt="Shoes" className="w-[121px] rounded-xl " />
+              }} src={yx1earphone} alt="Shoes" className="w-[121px] rounded-xl " />
             </figure>
             <div className="card w-[350px] bg-[#F1F1F1] h-[200px] shadow-xl">
 

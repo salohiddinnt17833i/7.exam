@@ -31,7 +31,7 @@ function Footer() {
                         <div className="grid grid-flow-col gap-4">
                             <img className='cursor-pointer' src={face} alt="" />
                             <img className='cursor-pointer' src={twit} alt="" />
-                            <img className='cursor-pointer' src={ins} alt="" />
+                            <a href="https://www.instagram.com/2oo7_styleuz/"><img className='cursor-pointer' src={ins} alt="" /></a>
                         </div>
                     </nav>
                 </footer>

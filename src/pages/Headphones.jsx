@@ -9,10 +9,7 @@ import { Link } from 'react-router-dom';
 
 import headphones from '../assets/home/headphones.png'
 import speakers from '../assets/home/zx9speaker.svg'
-import oval from '../assets/home/oval.png'
-import zx99speker from '../assets/home/zx9speaker.svg'
-import zx7spekerP from '../assets/home/zx7-speaker.png'
-import yx1earphones from '../assets/home/yx1-earphones.png'
+import yx1earphone from '../assets/home/earphones.png'
 import person from '../assets/home/person.png'
 import xx99headphones1 from '../assets/headphones/xx99-headphones1.png'
 import xx99headphones2 from '../assets/headphones/xx99-headphones2.png'
@@ -184,7 +181,7 @@ function Headphones() {
             <figure className='w-32 m-auto absolute z-20 mx-28 mt-[-70px]'>
               <img style={{
 
-              }} src={headphones} alt="Shoes" className="w-[121px] rounded-xl " />
+              }} src={yx1earphone} alt="Shoes" className="w-[121px] rounded-xl " />
             </figure>
             <div className="card w-[350px] bg-[#F1F1F1] h-[200px] shadow-xl">
 

@@ -9,7 +9,7 @@ import speakers from '../assets/home/zx9speaker.svg'
 import person from '../assets/home/person.png'
 import zx9speakersI from '../assets/speakers/zx9-speaker.png'
 import zx7speakersI from '../assets/speakers/zx7-speaker.png'
-
+import yx1earphone from '../assets/home/earphones.png'
 
 function Speakers() {
   const [zx9speakers, setHeadphonesTwo] = useState([]);
@@ -122,7 +122,7 @@ function Speakers() {
             <figure className='w-32 m-auto absolute z-20 mx-28 mt-[-70px]'>
               <img style={{
 
-              }} src={headphones} alt="Shoes" className="w-[121px] rounded-xl " />
+              }} src={yx1earphone} alt="Shoes" className="w-[121px] rounded-xl " />
             </figure>
             <div className="card w-[350px] bg-[#F1F1F1] h-[200px] shadow-xl">
 
