@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import oval from '../assets/checkout/true.svg'
@@ -7,6 +7,17 @@ function Checkout() {
 
     const [storeData, setStoreData] = useState([]);
     const [allPrice, setAllPrice] = useState(0);
+    const [isPaymentValid, setIsPaymentValid] = useState(false);
+
+    const refname = useRef(null)
+    const refemail = useRef(null)
+    const refphone = useRef(null)
+    const refadress = useRef(null)
+    const refzipcode = useRef(null)
+    const refcity = useRef(null)
+    const refcountry = useRef(null)
+    const refmoneynum = useRef(null)
+    const refmoneypin = useRef(null)
 
     useEffect(() => {
         let storedData = localStorage.getItem('storeData');
@@ -24,11 +35,62 @@ function Checkout() {
         setAllPrice(all);
     }, [storeData]);
 
+    function validata() {
+        const inputs = [
+            { ref: refname, label: 'Name' },
+            { ref: refemail, label: 'Email Address' },
+            { ref: refphone, label: 'Phone Number' },
+            { ref: refadress, label: 'Address' },
+            { ref: refzipcode, label: 'Zip code' },
+            { ref: refcity, label: 'City' },
+            { ref: refcountry, label: 'Country' },
+            { ref: refmoneynum, label: 'e-Money Number' },
+            { ref: refmoneypin, label: 'e-Money PIN' }
+        ];
 
-    function handlePay() {
+        for (let input of inputs) {
+            if (!input.ref.current.value.trim()) {
+                alert(`${input.label} is required.`);
+                return false;
+            }
+        }
 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(refemail.current.value)) {
+            alert('Please enter a valid email address.');
+            return false;
+        }
+
+        const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+        if (!phoneRegex.test(refphone.current.value)) {
+            alert('Please enter a valid phone number.');
+            return false;
+        }
+
+        if (refzipcode.current.value.length !== 5) {
+            alert('Zip code must be 5 digits long.');
+            return false;
+        }
+
+        if (refmoneynum.current.value.length !== 9) {
+            alert('e-Money Number must be 9 digits long.');
+            return false;
+        }
+
+        if (refmoneypin.current.value.length !== 4) {
+            alert('e-Money PIN must be 4 digits long.');
+            return false;
+        }
+
+        return true;
     }
-
+    function handlePay() {
+        const isValid = validata();
+        if (isValid) {
+            setIsPaymentValid(true);
+            document.getElementById('my_modal_5').showModal();
+        }
+    }
 
     return (
         <div className='w-[full] bg-[white]'>
@@ -43,17 +105,17 @@ function Checkout() {
                         <form className='grid grid-cols-2 gap-8'>
                             <label htmlFor="">
                                 <span className='text-black font-medium'>Name</span>
-                                <input type="text" placeholder="Alexei Ward" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
+                                <input ref={refname} type="text" placeholder="Alexei Ward" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
                             </label>
 
                             <label htmlFor="">
                                 <span className='text-black font-medium'>Email Address</span>
-                                <input type="email" placeholder="alexei@mail.com" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
+                                <input ref={refemail} type="email" placeholder="alexei@mail.com" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
                             </label>
 
                             <label htmlFor="">
                                 <span className='text-black font-medium'>Phone Number</span>
-                                <input type="tel" placeholder="+1 202-555-0136" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
+                                <input ref={refphone} type="tel" placeholder="+1 202-555-0136" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
                             </label>
                         </form>
                     </div>
@@ -62,23 +124,23 @@ function Checkout() {
                         <form className='w-full mt-4'>
                             <label className='flex flex-col w-[full]'>
                                 <span className='text-black font-medium'>Adress</span>
-                                <input type="text" placeholder="1137 Williams Avenue" className="input bg-transparent input-bordered w-full  mt-4" />
+                                <input ref={refadress} type="text" placeholder="1137 Williams Avenue" className="input bg-transparent input-bordered w-full  mt-4" />
                             </label>
                         </form>
                         <form className='grid grid-cols-2 gap-8 mt-6'>
                             <label htmlFor="">
                                 <span className='text-black font-medium'>Zip code</span>
-                                <input type="number" placeholder="10001" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
+                                <input ref={refzipcode} type="number" placeholder="10001" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
                             </label>
 
                             <label htmlFor="">
                                 <span className='text-black font-medium'>City</span>
-                                <input type="text" placeholder="New York" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
+                                <input ref={refcity} type="text" placeholder="New York" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
                             </label>
 
                             <label htmlFor="">
                                 <span className='text-black font-medium'>Country</span>
-                                <input type="tel" placeholder="United States" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
+                                <input ref={refcountry} type="tel" placeholder="United States" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
                             </label>
                         </form>
                     </div>
@@ -105,12 +167,12 @@ function Checkout() {
                     <div className='grid grid-cols-2 w-[full] mt-10'>
                         <label htmlFor="">
                             <span className='text-black font-medium'>e-Money Number</span>
-                            <input type="number" placeholder="238521993" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
+                            <input ref={refmoneynum} type="number" placeholder="238521993" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
                         </label>
 
                         <label htmlFor="">
                             <span className='text-black font-medium'>e-Money PIN</span>
-                            <input type="text" placeholder="6891" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
+                            <input ref={refmoneypin} type="number" placeholder="6891" className="input bg-transparent input-bordered w-full max-w-xs mt-4" />
                         </label>
                     </div>
                 </div>
@@ -156,50 +218,53 @@ function Checkout() {
                             <span>GRAND TOTAL</span>
                             <span className='font-bold text-orange-400'>$ {allPrice + 50 + 1079}</span>
                         </span>
-                        <button onClick={() => handlePay(document.getElementById('my_modal_5').showModal())} className='w-full mt-10 btn bg-orange-400 text-white rounded-none border-none'>CONTINUE & PAY</button>
-                        <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-                            <div className="modal-box">
-                                <div className='p-2'>
-                                    <img src={oval} alt="" />
-                                    <h2 className="py-4 text-[32px] text-white">THANK YOU FOR YOUR ORDER</h2>
-                                    <p className=''>You will receive an email confirmation shortly.</p>
-                                </div>
-                                <div>
-                                    <div className='flex items-center justify-center'>
-                                        <div className="carousel h-[150px] carousel-vertical rounded-box">
-                                            {storeData.map((ele, index) => (
-                                                <div key={index} className="carousel-item mt-5">
-                                                    <div className='w-246 h-140 rounded-l-lg p-5 bg-F1F1F1 flex items-center gap-4'>
-                                                        <img className='w-28 h-32' src={ele.img} alt="Img" />
-                                                        <div className='flex items-center gap-5'>
-                                                            <span className='flex flex-col'>
-                                                                <span className='font-semibold text-black uppercase'>{ele.name}</span>
-                                                                <span>$ {ele.price}</span>
-                                                            </span>
-
-                                                            <span>x{ele.number}</span>
-
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            ))}
+                       
+                        <button onClick={handlePay} className='w-full mt-10 btn bg-orange-400 text-white rounded-none border-none'>CONTINUE & PAY</button>
+                        {
+                            isPaymentValid ? (
+                                <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+                                    <div className="modal-box">
+                                        <div className='p-2'>
+                                            <img src={oval} alt="" />
+                                            <h2 className="py-4 text-[32px] text-white">THANK YOU FOR YOUR ORDER</h2>
+                                            <p className=''>You will receive an email confirmation shortly.</p>
                                         </div>
-                                        <div className='w-198 h-140 rounded-r-lg p-10 bg-000000'>
-                                            <span className='flex flex-col gap-2 mx-auto my-auto'>
-                                                <span>GRANT TOTAL</span>
-                                                <span className='text-white font-semibold'>$ {allPrice + 50 + 1079}</span>
-                                            </span>
+                                        <div>
+                                            <div className='flex items-center justify-center'>
+                                                <div className="carousel h-[150px] carousel-vertical rounded-box">
+                                                    {storeData.map((ele, index) => (
+                                                        <div key={index} className="carousel-item mt-5">
+                                                            <div className='w-246 h-140 rounded-l-lg p-5 bg-F1F1F1 flex items-center gap-4'>
+                                                                <img className='w-28 h-32' src={ele.img} alt="Img" />
+                                                                <div className='flex items-center gap-5'>
+                                                                    <span className='flex flex-col'>
+                                                                        <span className='font-semibold text-black uppercase'>{ele.name}</span>
+                                                                        <span>$ {ele.price}</span>
+                                                                    </span>
+                                                                    <span>x{ele.number}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                <div className='w-198 h-140 rounded-r-lg p-10 bg-000000'>
+                                                    <span className='flex flex-col gap-2 mx-auto my-auto'>
+                                                        <span>GRANT TOTAL</span>
+                                                        <span className='text-white font-semibold'>$ {allPrice + 50 + 1079}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="modal-action justify-center">
+                                            <form method="dialog">
+                                                <Link to={'/'} className="w-[444px]  btn bg-orange-400 text-[20px] text-white hover:bg-orange-300">BACK TO HOME</Link>
+                                            </form>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="modal-action justify-center">
-                                    <form method="dialog">
-                                        <Link to={'/'} className="w-[444px]  btn bg-orange-400 text-[20px] text-white hover:bg-orange-300">BACK TO HOME</Link>
-                                    </form>
-                                </div>
-                            </div>
-                        </dialog>
+                                </dialog>
+                            ) : null
+                        }
+
                     </div>
                 </div>
             </div>
