@@ -1,3 +1,4 @@
+import toast, { Toaster } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 
@@ -12,10 +13,16 @@ import three from '../assets/earphones/e3.svg'
 
 import headphones3 from '../assets/headphones/xx59-headphones.png'
 import zx9speaker from '../assets/earphones/earphones.svg'
+import { add } from '../store/storeData';
+import { useDispatch } from 'react-redux';
 
 
 
 function EarphonesDetailes() {
+  const dispatch = useDispatch()
+  const notify = () => toast.success('ADD TO CART!')
+
+
   const params = useParams();
   const [headphonesTwo, setHeadphonesTwo] = useState({});
   const [num, setNum] = useState(1)
@@ -32,8 +39,17 @@ function EarphonesDetailes() {
 
 
   function handleSaveCart() {
-
+    const obj = {
+      img: 'https://audiophile.dlindegren.com/media/products/yx1-wireless-earphones/desktop/yx1-wireless-earphones.jpg',
+      name: headphonesTwo?.name,
+      price: headphonesTwo?.price,
+      number: num
+    }
+    dispatch(add(obj))
+    notify()
   }
+
+
   function handleInc() {
     if (num === 1) {
       setNum(num)
@@ -76,6 +92,7 @@ function EarphonesDetailes() {
                 <span onClick={handleDec} className='w-1/3 p-2 cursor-pointer bg-[#F1F1F1]'>+</span>
               </span>
               <button onClick={handleSaveCart} className='w-[160px] btn bg-orange-400 text-white border-none rounded-none text-[13px] hover:bg-orange-300'>ADD TO CART</button>
+              <Toaster></Toaster>
             </div>
           </div>
         </div>

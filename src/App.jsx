@@ -6,12 +6,11 @@ import Register from './pages/Register';
 import Headphones from './pages/Headphones'
 import Speakers from './pages/Speakers'
 import Earphones from './pages/Earphones'
-import Navbar from './Components/Navbar';
+import Checkout from './pages/Checkout'
 import HedphonesDetailes from './pages/HedphonesDetailes';
 import SpeakersDetailes from './pages/SpeakersDetailes'
 import EarphonesDetailes from './pages/EarphonesDetailes'
 import Error from './pages/Error';
-import Footer from './Components/Footer';
 import Layout from './Components/Layout';
 
 function ProtectedRoute({ children, isAuthenticated, redirectTo = '/login' }) {
@@ -22,20 +21,12 @@ export const isLoggedContext = createContext()
 export const loggedUserName = createContext()
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [loggedUser, setLoggedUser] = useState('')
 
 
 
   const [headphonesTwo, setHeadphonesTwo] = useState([]);
-
-  // useEffect(() => {
-  //   fetch(`http://localhost:3000/yx1-earphones`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setHeadphonesTwo(data);
-  //     });
-  // }, []);
 
 
 
@@ -106,13 +97,16 @@ function App() {
             </Layout>
           </ProtectedRoute>}>
           </Route>
-
+          <Route path='/checkout' element={<ProtectedRoute isAuthenticated={isLoggedIn}>
+            <Layout>
+              <Checkout></Checkout>
+            </Layout>
+          </ProtectedRoute>}>
+          </Route>
           <Route path='*' element={<ProtectedRoute isAuthenticated={isLoggedIn}>
             <Error></Error>
           </ProtectedRoute>}>
           </Route>
-
-
         </Routes>
       </loggedUserName.Provider>
     </isLoggedContext.Provider>

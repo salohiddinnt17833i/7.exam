@@ -1,3 +1,4 @@
+import toast, { Toaster } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 
@@ -13,12 +14,23 @@ import three from '../assets/detailes/three.png'
 import headphones2 from '../assets/headphones/xx99-headphones1.png'
 import headphones3 from '../assets/headphones/xx59-headphones.png'
 import zx9speaker from '../assets/headphones/zx9-speaker.png'
+
+
+import { add } from '../store/storeData';
+import { useDispatch, useSelector } from 'react-redux';
+
 function HedphonesDetailes() {
+  const notify = () => toast.success('ADD TO CART!')
+
   const params = useParams();
   const location = useLocation()
   const [headphonesTwo, setHeadphonesTwo] = useState({});
   const [headphones59, setHeadphones59] = useState({});
   const [num, setNum] = useState(1)
+  const [storeData, setStoreData] = useState([])
+
+  const dispatch = useDispatch()
+  const store = useSelector(store => store.storeData)
 
   useEffect(() => {
     let paramsID = params.id;
@@ -32,15 +44,23 @@ function HedphonesDetailes() {
       .then(res => res.json())
       .then(data => {
         setHeadphones59(data);
-        console.log(data);
       });
 
-  }, [headphonesTwo]);
+  }, [headphonesTwo, num]);
 
 
   function handleSaveCart() {
-
+    const obj = {
+      img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKfF2GQj5Ht9F_bjXACGMZ7a0-V6L3OFJvQaqYHHwr3A&s',
+      name: headphonesTwo?.name,
+      price: headphonesTwo?.price,
+      number: num
+    }
+    dispatch(add(obj))
+    notify()
   }
+
+
   function handleInc() {
     if (num === 1) {
       setNum(num)
@@ -83,6 +103,7 @@ function HedphonesDetailes() {
                 <span onClick={handleDec} className='w-1/3 p-2 cursor-pointer bg-[#F1F1F1]'>+</span>
               </span>
               <button onClick={handleSaveCart} className='w-[160px] btn bg-orange-400 text-white border-none rounded-none text-[13px] hover:bg-orange-300'>ADD TO CART</button>
+              <Toaster></Toaster>
             </div>
           </div>
         </div>

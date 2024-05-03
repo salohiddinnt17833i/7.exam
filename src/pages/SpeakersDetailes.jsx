@@ -12,10 +12,17 @@ import three from '../assets/detailes/s3.svg'
 
 import headphones3 from '../assets/headphones/xx59-headphones.png'
 import zx9speaker from '../assets/headphones/zx9-speaker.png'
+import { add } from '../store/storeData';
+import { useDispatch } from 'react-redux';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
 function SpeakersDetailse() {
+  const dispatch = useDispatch()
+  const notify = () => toast.success('ADD TO CART!')
+
+
   const params = useParams();
   const [headphonesTwo, setHeadphonesTwo] = useState({});
   const [num, setNum] = useState(1)
@@ -30,10 +37,17 @@ function SpeakersDetailse() {
 
   }, [headphonesTwo]);
 
-
   function handleSaveCart() {
-
+    const obj = {
+      img: 'https://audiophile-chi-indol.vercel.app/images/products/zx9/desktop.webp',
+      name: headphonesTwo?.name,
+      price: headphonesTwo?.price,
+      number: num
+    }
+    dispatch(add(obj))
+    notify()
   }
+
   function handleInc() {
     if (num === 1) {
       setNum(num)
@@ -76,6 +90,7 @@ function SpeakersDetailse() {
                 <span onClick={handleDec} className='w-1/3 p-2 cursor-pointer bg-[#F1F1F1]'>+</span>
               </span>
               <button onClick={handleSaveCart} className='w-[160px] btn bg-orange-400 text-white border-none rounded-none text-[13px] hover:bg-orange-300'>ADD TO CART</button>
+              <Toaster></Toaster>
             </div>
           </div>
         </div>
