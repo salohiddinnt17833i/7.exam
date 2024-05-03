@@ -22,7 +22,7 @@ export const isLoggedContext = createContext()
 export const loggedUserName = createContext()
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedUser, setLoggedUser] = useState('')
 
 

@@ -1,14 +1,28 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { isLoggedContext, loggedUserName } from '../App';
 
 function Navbar() {
     const [loggedUser, setLoggedUser] = useContext(loggedUserName)
     const [isLoggedIn, setIsLoggedIn] = useContext(isLoggedContext);
+    const [num, setNum] = useState(1)
+
     function handleSignout() {
         setIsLoggedIn(false)
         localStorage.setItem('isLoggedIn', false)
     }
+    function handleInc() {
+        if (num === 1) {
+            setNum(num)
+        } else {
+            setNum(num - 1)
+
+        }
+    }
+    function handleDec() {
+        setNum(num + 1)
+    }
+
     return (
         <div className='w-full bg-[#131313]'>
             <div className='w-[1110px] m-auto'>
@@ -34,11 +48,11 @@ function Navbar() {
                             </div>
                             <div tabIndex={0} className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow">
                                 <div className="card-body">
-                                    <span className="font-bold text-lg">8 Items</span>
-                                    <span className="text-info">Subtotal: $999</span>
-                                    <div className="card-actions">
-                                        <button className="btn btn-primary btn-block">View cart</button>
-                                    </div>
+                                    <span className=' rounded-lg w-[120px] flex justify-center text-center text-black'>
+                                        <span onClick={handleInc} className='w-1/3 p-2 cursor-pointer bg-[#F1F1F1]'>-</span>
+                                        <span className='w-1/3 p-2 bg-[#F1F1F1]'>{num}</span>
+                                        <span onClick={handleDec} className='w-1/3 p-2 cursor-pointer bg-[#F1F1F1]'>+</span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
