@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { isLoggedContext, loggedUserName } from '../App';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { parse } from 'postcss';
 import headphones2 from '../assets/headphones/xx99-headphones1.png';
+import { remove } from '../store/storeData';
 
 function Navbar() {
     const [loggedUser, setLoggedUser] = useContext(loggedUserName);
@@ -12,11 +13,12 @@ function Navbar() {
     const [storeDataa, setStoreData] = useState([]);
     const [allPrice, setAllPrice] = useState(0);
 
+    const dispatch = useDispatch()
+
     function handleSignout() {
         setIsLoggedIn(false);
         localStorage.setItem('isLoggedIn', false);
     }
-
     function handleInc() {
         if (num === 1) {
             setNum(num);
@@ -24,22 +26,21 @@ function Navbar() {
             setNum(num - 1);
         }
     }
-
     function handleDec() {
         setNum(num + 1);
     }
-
     function handleCart() {
         let storeData = localStorage.getItem('storeData');
         if (storeData && storeData.length > 0) {
             const parsedData = JSON.parse(storeData);
-            setStoreData(parsedData);
+            setStoreData(parsedData)
         }
     }
 
     function handleRemove() {
         localStorage.removeItem('storeData');
-        window.location.reload();
+        dispatch(remove([]))
+        setStoreData([])
     }
 
     useEffect(() => {
@@ -84,7 +85,7 @@ function Navbar() {
                                     {
                                         storeDataa.map((ele, index) => {
                                             return (
-                                                <div className='flex items-center justify-between'>
+                                                <div key={index} className='flex items-center justify-between'>
                                                     <div className='flex gap-6 items-center'>
                                                         <div className='w-[64px] h-[64px] bg-[#F1F1F1] flex justify-center rounded-lg'>
                                                             <img className='w-[35px] my-auto h-[40px]' src={ele.img} alt="" />

@@ -31,6 +31,7 @@ function Login() {
             setIsLoggedIn(true);
             setLoggedUser(user.userName);
             navigate('/');
+            localStorage.setItem('isLoggedIn', true)
         } else {
             setIsLoggedIn(false);
             passwordRef.current.value = '';

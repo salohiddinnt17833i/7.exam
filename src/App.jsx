@@ -21,13 +21,15 @@ export const isLoggedContext = createContext()
 export const loggedUserName = createContext()
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedUser, setLoggedUser] = useState('')
 
-
-
-  const [headphonesTwo, setHeadphonesTwo] = useState([]);
-
+  useEffect(() => {
+    let loggedIn = localStorage.getItem('isLoggedIn')
+    if (loggedIn) {
+      setIsLoggedIn(loggedIn)
+    }
+  }, [isLoggedIn])
 
 
   return (
@@ -58,7 +60,6 @@ function App() {
             </Layout>
           </ProtectedRoute>}>
           </Route>
-
           <Route path='/headphones' element={<ProtectedRoute isAuthenticated={isLoggedIn}>
             <Layout>
               <Headphones></Headphones>
@@ -71,7 +72,6 @@ function App() {
             </Layout>
           </ProtectedRoute>}>
           </Route>
-
           <Route path='/speakers' element={<ProtectedRoute isAuthenticated={isLoggedIn}>
             <Layout>
               <Speakers></Speakers>
@@ -84,7 +84,6 @@ function App() {
             </Layout>
           </ProtectedRoute>}>
           </Route>
-
           <Route path='/earphones' element={<ProtectedRoute isAuthenticated={isLoggedIn}>
             <Layout>
               <Earphones></Earphones>

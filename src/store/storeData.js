@@ -13,8 +13,11 @@ export const storeDataSlice = createSlice({
             let copied = JSON.stringify(state.value)
             localStorage.setItem('storeData', copied);
         },
+        remove: (state, action) => {
+            state.value = action.payload
+        }
     },
 });
 
-export const { add } = storeDataSlice.actions;
+export const { add, remove } = storeDataSlice.actions;
 export default storeDataSlice.reducer;

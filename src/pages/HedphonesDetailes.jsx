@@ -1,6 +1,6 @@
 import toast, { Toaster } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import headphones from '../assets/home/headphones.png'
 import speakers from '../assets/home/zx9speaker.svg'
@@ -31,22 +31,29 @@ function HedphonesDetailes() {
 
   const dispatch = useDispatch()
   const store = useSelector(store => store.storeData)
-
+  const navigate = useNavigate()
   useEffect(() => {
     let paramsID = params.id;
-    fetch(`http://localhost:3000/${paramsID}`)
-      .then(res => res.json())
-      .then(data => {
-        setHeadphonesTwo(data);
-      });
-
-    fetch(`http://localhost:3000/xx59-headphones`)
-      .then(res => res.json())
-      .then(data => {
-        setHeadphones59(data);
-      });
-
-  }, [headphonesTwo, num]);
+    if (
+      paramsID === 'yx1-earphones' ||
+      paramsID === 'xx59-headphones' ||
+      paramsID === 'xx99-mark-one-headphones' ||
+      paramsID === 'xx99-mark-two-headphones' ||
+      paramsID === 'zx7-speaker' ||
+      paramsID === 'zx9-speaker'
+    ) {
+      fetch(`http://localhost:3000/${paramsID}`)
+        .then(res => res.json())
+        .then(data => {
+          setHeadphonesTwo(data);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+        });
+    } else {
+      navigate('*');
+    }
+  }, [params.id]);
 
 
   function handleSaveCart() {
