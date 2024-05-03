@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+import oval from '../assets/checkout/true.svg'
+import head from '../assets/headphones/xx99-headphones1.png'
 function Checkout() {
 
     const [storeData, setStoreData] = useState([]);
@@ -20,6 +23,11 @@ function Checkout() {
         });
         setAllPrice(all);
     }, [storeData]);
+
+
+    function handlePay() {
+
+    }
 
 
     return (
@@ -148,8 +156,51 @@ function Checkout() {
                             <span>GRAND TOTAL</span>
                             <span className='font-bold text-orange-400'>$ {allPrice + 50 + 1079}</span>
                         </span>
+                        <button onClick={() => handlePay(document.getElementById('my_modal_5').showModal())} className='w-full mt-10 btn bg-orange-400 text-white rounded-none border-none'>CONTINUE & PAY</button>
+                        <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+                            <div className="modal-box">
+                                <div className='p-2'>
+                                    <img src={oval} alt="" />
+                                    <h2 className="py-4 text-[32px] text-white">THANK YOU FOR YOUR ORDER</h2>
+                                    <p className=''>You will receive an email confirmation shortly.</p>
+                                </div>
+                                <div>
+                                    <div className='flex items-center justify-center'>
+                                        <div className="carousel h-[150px] carousel-vertical rounded-box">
+                                            {
+                                                storeData.length > 0 && storeData.map((ele, index) => {
+                                                    <div className="carousel-item  mt-5">
+                                                        <div className='w-[246px] h-[140px] rounded-l-lg p-5 bg-[#F1F1F1] flex items-center gap-4'>
+                                                            <img className='w-[28px] h-[32px] ' src={ele.img} alt="Img" />
+                                                            <div className='flex items-center gap-5'>
+                                                                <span className='flex flex-col'>
+                                                                    <span className=' font-semibold text-black uppercase'>{ele.name}</span>
+                                                                    <span>$ {ele.price}</span>
+                                                                </span>
 
-                        <button className='w-full mt-10 btn bg-orange-400 text-white rounded-none border-none'>CONTINUE & PAY</button>
+                                                                <span>x{ele.umber}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div className='w-[198px] h-[140px] rounded-r-lg p-10 bg-[#000000]'>
+                                                            <span className=' flex flex-col gap-2 mx-auto my-auto'>
+                                                                <span>GRANT TOTAL</span>
+                                                                <span className='text-white font-semibold'>$ {allPrice + 50 + 1079}</span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                })
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="modal-action justify-center">
+                                    <form method="dialog">
+                                        <button className="w-[444px]  btn bg-orange-400 text-[20px] text-white hover:bg-orange-300">BACK TO HOME</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
                     </div>
                 </div>
             </div>

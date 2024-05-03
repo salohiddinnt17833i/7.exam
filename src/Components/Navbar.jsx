@@ -118,6 +118,7 @@ function Navbar() {
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <span onClick={handleSignout} className='cursor-pointer text-white bg-orange-400 rounded-lg py-1 px-2'>Sign Out</span>

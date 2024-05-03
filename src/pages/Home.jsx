@@ -169,7 +169,7 @@ function Home() {
           </div>
           <div className='w-[540px] h-[320px] bg-[#F1F1F1] rounded-lg p-24'>
             <h2 className='text-[28px] text-black font-bold uppercase'>{yx1ear?.name}</h2>
-            <Link to={'/speakers/yx1-earphones'} className='btn bg-transparent mt-4 px-10 rounded-none text-black hover:text-white'>SEE PRODUCT</Link>
+            <Link to={'/earphones/yx1-earphones'} className='btn bg-transparent mt-4 px-10 rounded-none text-black hover:text-white'>SEE PRODUCT</Link>
           </div>
         </div>
 
