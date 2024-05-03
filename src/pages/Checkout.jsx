@@ -167,36 +167,35 @@ function Checkout() {
                                 <div>
                                     <div className='flex items-center justify-center'>
                                         <div className="carousel h-[150px] carousel-vertical rounded-box">
-                                            {
-                                                storeData.length > 0 && storeData.map((ele, index) => {
-                                                    <div className="carousel-item  mt-5">
-                                                        <div className='w-[246px] h-[140px] rounded-l-lg p-5 bg-[#F1F1F1] flex items-center gap-4'>
-                                                            <img className='w-[28px] h-[32px] ' src={ele.img} alt="Img" />
-                                                            <div className='flex items-center gap-5'>
-                                                                <span className='flex flex-col'>
-                                                                    <span className=' font-semibold text-black uppercase'>{ele.name}</span>
-                                                                    <span>$ {ele.price}</span>
-                                                                </span>
-
-                                                                <span>x{ele.umber}</span>
-                                                            </div>
-                                                        </div>
-                                                        <div className='w-[198px] h-[140px] rounded-r-lg p-10 bg-[#000000]'>
-                                                            <span className=' flex flex-col gap-2 mx-auto my-auto'>
-                                                                <span>GRANT TOTAL</span>
-                                                                <span className='text-white font-semibold'>$ {allPrice + 50 + 1079}</span>
+                                            {storeData.map((ele, index) => (
+                                                <div key={index} className="carousel-item mt-5">
+                                                    <div className='w-246 h-140 rounded-l-lg p-5 bg-F1F1F1 flex items-center gap-4'>
+                                                        <img className='w-28 h-32' src={ele.img} alt="Img" />
+                                                        <div className='flex items-center gap-5'>
+                                                            <span className='flex flex-col'>
+                                                                <span className='font-semibold text-black uppercase'>{ele.name}</span>
+                                                                <span>$ {ele.price}</span>
                                                             </span>
+
+                                                            <span>x{ele.number}</span>
+
                                                         </div>
                                                     </div>
-                                                })
-                                            }
 
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div className='w-198 h-140 rounded-r-lg p-10 bg-000000'>
+                                            <span className='flex flex-col gap-2 mx-auto my-auto'>
+                                                <span>GRANT TOTAL</span>
+                                                <span className='text-white font-semibold'>$ {allPrice + 50 + 1079}</span>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="modal-action justify-center">
                                     <form method="dialog">
-                                        <button className="w-[444px]  btn bg-orange-400 text-[20px] text-white hover:bg-orange-300">BACK TO HOME</button>
+                                        <Link to={'/'} className="w-[444px]  btn bg-orange-400 text-[20px] text-white hover:bg-orange-300">BACK TO HOME</Link>
                                     </form>
                                 </div>
                             </div>
